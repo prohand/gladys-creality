@@ -8,8 +8,8 @@
     "de": "Überwache und steuere deine Creality-3D-Drucker (K1, K2, Ender-3 V3...) im Netzwerk.",
     "es": "Siga y controle sus impresoras 3D Creality (K1, K2, Ender-3 V3...) en su red."
   },
-  "version": "0.0.0",
-  "docker_image": "ghcr.io/prohand/gladys-creality:0.0.0",
+  "version": "0.0.1",
+  "docker_image": "ghcr.io/prohand/gladys-creality:0.0.1",
   "gladys_version": ">=5.3.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-creality/main/cover.png",
   "categories": ["appliances"],
@@ -416,19 +416,39 @@
           "options": [
             {
               "value": "25",
-              "label": { "en": "25 %", "fr": "25 %", "de": "25 %", "es": "25 %" }
+              "label": {
+                "en": "25 %",
+                "fr": "25 %",
+                "de": "25 %",
+                "es": "25 %"
+              }
             },
             {
               "value": "50",
-              "label": { "en": "50 %", "fr": "50 %", "de": "50 %", "es": "50 %" }
+              "label": {
+                "en": "50 %",
+                "fr": "50 %",
+                "de": "50 %",
+                "es": "50 %"
+              }
             },
             {
               "value": "75",
-              "label": { "en": "75 %", "fr": "75 %", "de": "75 %", "es": "75 %" }
+              "label": {
+                "en": "75 %",
+                "fr": "75 %",
+                "de": "75 %",
+                "es": "75 %"
+              }
             },
             {
               "value": "90",
-              "label": { "en": "90 %", "fr": "90 %", "de": "90 %", "es": "90 %" }
+              "label": {
+                "en": "90 %",
+                "fr": "90 %",
+                "de": "90 %",
+                "es": "90 %"
+              }
             }
           ]
         }
@@ -570,7 +590,12 @@
           "options": [
             {
               "value": "pause",
-              "label": { "en": "Pause", "fr": "Pause", "de": "Pause", "es": "Pausa" }
+              "label": {
+                "en": "Pause",
+                "fr": "Pause",
+                "de": "Pause",
+                "es": "Pausa"
+              }
             },
             {
               "value": "resume",

@@ -1,6 +1,6 @@
 {
   "name": "gladys-creality",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "description": "Gladys Assistant external integration for Creality 3D printers (K1, K2, Ender-3 V3...), over the local network.",
   "type": "module",

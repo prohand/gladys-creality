@@ -6,6 +6,8 @@ All notable changes to this integration are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.0.1] - 2026-11-20
+
 ### Added
 
 - First version of the Creality integration, built from the official Gladys
@@ -27,4 +29,5 @@ All notable changes to this integration are documented here. The format follows
 - Actions: "Test the connection", "Identify a printer" (blinks its light).
 - Texts and documentation in English, French, German and Spanish.
 
-[Unreleased]: https://github.com/prohand/gladys-creality/commits/main
+[Unreleased]: https://github.com/prohand/gladys-creality/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/prohand/gladys-creality/releases/tag/v0.0.1
