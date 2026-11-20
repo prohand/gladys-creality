@@ -1,0 +1,662 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "Creality",
+  "description": {
+    "en": "Follow and control your Creality 3D printers (K1, K2, Ender-3 V3...) on your network.",
+    "fr": "Suivez et pilotez vos imprimantes 3D Creality (K1, K2, Ender-3 V3...) sur votre réseau.",
+    "de": "Überwache und steuere deine Creality-3D-Drucker (K1, K2, Ender-3 V3...) im Netzwerk.",
+    "es": "Siga y controle sus impresoras 3D Creality (K1, K2, Ender-3 V3...) en su red."
+  },
+  "version": "0.0.0",
+  "docker_image": "ghcr.io/prohand/gladys-creality:0.0.0",
+  "gladys_version": ">=5.3.0",
+  "cover_image": "https://raw.githubusercontent.com/prohand/gladys-creality/main/cover.png",
+  "categories": ["appliances"],
+  "keywords": [
+    "3d printer",
+    "imprimante 3d",
+    "3d-drucker",
+    "impresora 3d",
+    "k1 max",
+    "k1c",
+    "k2 plus",
+    "ender-3 v3",
+    "creality os",
+    "klipper"
+  ],
+  "transports": ["local"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Getting started",
+        "fr": "Pour commencer",
+        "de": "Erste Schritte",
+        "es": "Primeros pasos"
+      },
+      "description": {
+        "en": "Works with the Creality OS printers (K1, K1C, K1 Max, K1 SE, K2, Ender-3 V3, Ender-3 V3 KE, Hi...) on your local network: no Creality Cloud account, nothing to install on the printer. Give each printer a fixed address in your router, then list it below.",
+        "fr": "Fonctionne avec les imprimantes sous Creality OS (K1, K1C, K1 Max, K1 SE, K2, Ender-3 V3, Ender-3 V3 KE, Hi...) sur votre réseau local : pas de compte Creality Cloud, rien à installer sur l'imprimante. Donnez à chaque imprimante une adresse fixe dans votre box, puis listez-la ci-dessous.",
+        "de": "Funktioniert mit den Creality-OS-Druckern (K1, K1C, K1 Max, K1 SE, K2, Ender-3 V3, Ender-3 V3 KE, Hi...) in deinem lokalen Netzwerk: kein Creality-Cloud-Konto, nichts auf dem Drucker zu installieren. Gib jedem Drucker eine feste Adresse in deinem Router und trage ihn unten ein.",
+        "es": "Funciona con las impresoras con Creality OS (K1, K1C, K1 Max, K1 SE, K2, Ender-3 V3, Ender-3 V3 KE, Hi...) en su red local: sin cuenta de Creality Cloud, nada que instalar en la impresora. Dé a cada impresora una dirección fija en su router y luego añádala abajo."
+      },
+      "links": [
+        {
+          "url": "https://github.com/prohand/gladys-creality/blob/main/docs/en.md",
+          "label": {
+            "en": "Integration documentation",
+            "fr": "Documentation de l'intégration",
+            "de": "Dokumentation der Integration",
+            "es": "Documentación de la integración"
+          }
+        }
+      ]
+    },
+    {
+      "key": "printers",
+      "type": "string",
+      "label": {
+        "en": "Printers",
+        "fr": "Imprimantes",
+        "de": "Drucker",
+        "es": "Impresoras"
+      },
+      "description": {
+        "en": "The address of each printer, separated by commas. Add a name before it with = if you like: Workshop K1=192.168.1.40. The printer screen shows its address under Settings > Network.",
+        "fr": "L'adresse de chaque imprimante, séparées par des virgules. Ajoutez un nom devant avec = si vous voulez : K1 Atelier=192.168.1.40. L'écran de l'imprimante affiche son adresse dans Paramètres > Réseau.",
+        "de": "Die Adresse jedes Druckers, durch Kommas getrennt. Wenn du willst, setze mit = einen Namen davor: K1 Werkstatt=192.168.1.40. Der Bildschirm des Druckers zeigt seine Adresse unter Einstellungen > Netzwerk.",
+        "es": "La dirección de cada impresora, separadas por comas. Si quiere, añada un nombre delante con =: K1 Taller=192.168.1.40. La pantalla de la impresora muestra su dirección en Ajustes > Red."
+      },
+      "placeholder": {
+        "en": "Workshop K1=192.168.1.40, 192.168.1.41",
+        "fr": "K1 Atelier=192.168.1.40, 192.168.1.41",
+        "de": "K1 Werkstatt=192.168.1.40, 192.168.1.41",
+        "es": "K1 Taller=192.168.1.40, 192.168.1.41"
+      },
+      "required": true
+    },
+    {
+      "key": "camera",
+      "type": "boolean",
+      "label": {
+        "en": "Printer camera",
+        "fr": "Caméra de l'imprimante",
+        "de": "Druckerkamera",
+        "es": "Cámara de la impresora"
+      },
+      "description": {
+        "en": "Turn on if your printers have a camera (K1C, K1 Max, K2...): each printer then gets a camera device in Gladys, refreshed every minute.",
+        "fr": "Activez si vos imprimantes ont une caméra (K1C, K1 Max, K2...) : chaque imprimante reçoit alors un appareil caméra dans Gladys, rafraîchi chaque minute.",
+        "de": "Einschalten, wenn deine Drucker eine Kamera haben (K1C, K1 Max, K2...): Jeder Drucker erhält dann ein Kameragerät in Gladys, jede Minute aktualisiert.",
+        "es": "Actívelo si sus impresoras tienen cámara (K1C, K1 Max, K2...): cada impresora recibe entonces un dispositivo cámara en Gladys, actualizado cada minuto."
+      },
+      "required": false,
+      "default": false
+    },
+    {
+      "key": "camera_port",
+      "type": "number",
+      "label": {
+        "en": "Camera port",
+        "fr": "Port de la caméra",
+        "de": "Kamera-Port",
+        "es": "Puerto de la cámara"
+      },
+      "description": {
+        "en": "Port of the camera snapshot server on the printer. 8080 on Creality OS: change it only if you know yours differs.",
+        "fr": "Port du serveur d'images de la caméra sur l'imprimante. 8080 sous Creality OS : ne le changez que si vous savez que le vôtre est différent.",
+        "de": "Port des Kamera-Bildservers auf dem Drucker. 8080 unter Creality OS: nur ändern, wenn du weißt, dass deiner anders ist.",
+        "es": "Puerto del servidor de imágenes de la cámara en la impresora. 8080 en Creality OS: cámbielo solo si sabe que el suyo es distinto."
+      },
+      "required": false,
+      "default": 8080,
+      "min": 1,
+      "max": 65535
+    },
+    {
+      "key": "refresh_interval",
+      "type": "number",
+      "label": {
+        "en": "Refresh interval (s)",
+        "fr": "Intervalle de rafraîchissement (s)",
+        "de": "Aktualisierungsintervall (s)",
+        "es": "Intervalo de actualización (s)"
+      },
+      "description": {
+        "en": "How often temperatures, progress and times are sent to Gladys, in seconds. A change of print state is always sent at once.",
+        "fr": "Fréquence d'envoi des températures, de la progression et des temps à Gladys, en secondes. Un changement d'état d'impression est toujours envoyé tout de suite.",
+        "de": "Wie oft Temperaturen, Fortschritt und Zeiten an Gladys gesendet werden, in Sekunden. Eine Änderung des Druckstatus wird immer sofort gesendet.",
+        "es": "Cada cuánto se envían a Gladys las temperaturas, el progreso y los tiempos, en segundos. Un cambio de estado de impresión siempre se envía al momento."
+      },
+      "required": false,
+      "default": 30,
+      "min": 5,
+      "max": 600
+    },
+    {
+      "key": "debug_logs",
+      "type": "boolean",
+      "label": {
+        "en": "Detailed logs (debug)",
+        "fr": "Journaux détaillés (debug)",
+        "de": "Detaillierte Protokolle (Debug)",
+        "es": "Registros detallados (depuración)"
+      },
+      "description": {
+        "en": "Log every order sent to the printers and every connection attempt. Turn it on to understand a problem, then off again: it is verbose.",
+        "fr": "Journalise chaque ordre envoyé aux imprimantes et chaque tentative de connexion. Activez-le pour comprendre un problème, puis désactivez-le : c'est verbeux.",
+        "de": "Protokolliert jeden an die Drucker gesendeten Befehl und jeden Verbindungsversuch. Zum Verstehen eines Problems einschalten, danach wieder aus: Es ist ausführlich.",
+        "es": "Registra cada orden enviada a las impresoras y cada intento de conexión. Actívelo para entender un problema y luego desactívelo: es muy prolijo."
+      },
+      "required": false,
+      "default": false
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "timeout_seconds": 30
+    },
+    {
+      "key": "identify",
+      "label": {
+        "en": "Identify a printer",
+        "fr": "Identifier une imprimante",
+        "de": "Drucker identifizieren",
+        "es": "Identificar una impresora"
+      },
+      "timeout_seconds": 15,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Printer",
+            "fr": "Imprimante",
+            "de": "Drucker",
+            "es": "Impresora"
+          },
+          "required": true
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "printer",
+      "label": {
+        "en": "3D printer",
+        "fr": "Imprimante 3D",
+        "de": "3D-Drucker",
+        "es": "Impresora 3D"
+      },
+      "description": {
+        "en": "Progress, temperatures, camera and print controls of a Creality printer.",
+        "fr": "Progression, températures, caméra et commandes d'une imprimante Creality.",
+        "de": "Fortschritt, Temperaturen, Kamera und Drucksteuerung eines Creality-Druckers.",
+        "es": "Progreso, temperaturas, cámara y control de una impresora Creality."
+      },
+      "icon": "printer",
+      "settings": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Printer",
+            "fr": "Imprimante",
+            "de": "Drucker",
+            "es": "Impresora"
+          },
+          "description": {
+            "en": "Leave empty to show the first printer of the list.",
+            "fr": "Laissez vide pour afficher la première imprimante de la liste.",
+            "de": "Leer lassen, um den ersten Drucker der Liste anzuzeigen.",
+            "es": "Déjelo vacío para mostrar la primera impresora de la lista."
+          },
+          "required": false
+        }
+      ],
+      "action_timeout_seconds": 15
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "print_state_changed",
+      "label": {
+        "en": "Print state changed",
+        "fr": "L'état d'impression change",
+        "de": "Druckstatus geändert",
+        "es": "Cambia el estado de impresión"
+      },
+      "description": {
+        "en": "A print started, was paused, resumed, completed, failed or was stopped.",
+        "fr": "Une impression a démarré, a été mise en pause, a repris, s'est terminée, a échoué ou a été arrêtée.",
+        "de": "Ein Druck wurde gestartet, pausiert, fortgesetzt, beendet, ist fehlgeschlagen oder wurde abgebrochen.",
+        "es": "Una impresión ha empezado, se ha pausado, reanudado, terminado, ha fallado o se ha detenido."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Printer",
+            "fr": "Imprimante",
+            "de": "Drucker",
+            "es": "Impresora"
+          },
+          "required": false
+        },
+        {
+          "key": "state",
+          "type": "multi_select",
+          "label": {
+            "en": "New state",
+            "fr": "Nouvel état",
+            "de": "Neuer Status",
+            "es": "Nuevo estado"
+          },
+          "options": [
+            {
+              "value": "printing",
+              "label": {
+                "en": "Printing",
+                "fr": "Impression",
+                "de": "Druckt",
+                "es": "Imprimiendo"
+              }
+            },
+            {
+              "value": "paused",
+              "label": {
+                "en": "Paused",
+                "fr": "En pause",
+                "de": "Pausiert",
+                "es": "En pausa"
+              }
+            },
+            {
+              "value": "completed",
+              "label": {
+                "en": "Completed",
+                "fr": "Terminée",
+                "de": "Fertig",
+                "es": "Terminada"
+              }
+            },
+            {
+              "value": "failed",
+              "label": {
+                "en": "Failed",
+                "fr": "Échouée",
+                "de": "Fehlgeschlagen",
+                "es": "Fallida"
+              }
+            },
+            {
+              "value": "stopped",
+              "label": {
+                "en": "Stopped",
+                "fr": "Arrêtée",
+                "de": "Abgebrochen",
+                "es": "Detenida"
+              }
+            },
+            {
+              "value": "idle",
+              "label": {
+                "en": "Idle",
+                "fr": "Au repos",
+                "de": "Bereit",
+                "es": "En reposo"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "device_name",
+          "type": "string",
+          "label": {
+            "en": "Printer name",
+            "fr": "Nom de l'imprimante",
+            "de": "Druckername",
+            "es": "Nombre de la impresora"
+          }
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "New state",
+            "fr": "Nouvel état",
+            "de": "Neuer Status",
+            "es": "Nuevo estado"
+          }
+        },
+        {
+          "key": "previous_state",
+          "type": "string",
+          "label": {
+            "en": "Previous state",
+            "fr": "État précédent",
+            "de": "Vorheriger Status",
+            "es": "Estado anterior"
+          }
+        },
+        {
+          "key": "file_name",
+          "type": "string",
+          "label": {
+            "en": "File name",
+            "fr": "Nom du fichier",
+            "de": "Dateiname",
+            "es": "Nombre del archivo"
+          }
+        },
+        {
+          "key": "progress",
+          "type": "number",
+          "label": {
+            "en": "Progress (%)",
+            "fr": "Progression (%)",
+            "de": "Fortschritt (%)",
+            "es": "Progreso (%)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "print_progress",
+      "label": {
+        "en": "Print progress reached",
+        "fr": "Progression d'impression atteinte",
+        "de": "Druckfortschritt erreicht",
+        "es": "Progreso de impresión alcanzado"
+      },
+      "description": {
+        "en": "The current print reached 25, 50, 75 or 90 %. Once per step and per print.",
+        "fr": "L'impression en cours a atteint 25, 50, 75 ou 90 %. Une fois par palier et par impression.",
+        "de": "Der laufende Druck hat 25, 50, 75 oder 90 % erreicht. Einmal pro Stufe und Druck.",
+        "es": "La impresión en curso ha alcanzado el 25, 50, 75 o 90 %. Una vez por tramo y por impresión."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Printer",
+            "fr": "Imprimante",
+            "de": "Drucker",
+            "es": "Impresora"
+          },
+          "required": false
+        },
+        {
+          "key": "threshold",
+          "type": "multi_select",
+          "label": {
+            "en": "Step",
+            "fr": "Palier",
+            "de": "Stufe",
+            "es": "Tramo"
+          },
+          "options": [
+            {
+              "value": "25",
+              "label": { "en": "25 %", "fr": "25 %", "de": "25 %", "es": "25 %" }
+            },
+            {
+              "value": "50",
+              "label": { "en": "50 %", "fr": "50 %", "de": "50 %", "es": "50 %" }
+            },
+            {
+              "value": "75",
+              "label": { "en": "75 %", "fr": "75 %", "de": "75 %", "es": "75 %" }
+            },
+            {
+              "value": "90",
+              "label": { "en": "90 %", "fr": "90 %", "de": "90 %", "es": "90 %" }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "device_name",
+          "type": "string",
+          "label": {
+            "en": "Printer name",
+            "fr": "Nom de l'imprimante",
+            "de": "Druckername",
+            "es": "Nombre de la impresora"
+          }
+        },
+        {
+          "key": "progress",
+          "type": "number",
+          "label": {
+            "en": "Progress (%)",
+            "fr": "Progression (%)",
+            "de": "Fortschritt (%)",
+            "es": "Progreso (%)"
+          }
+        },
+        {
+          "key": "file_name",
+          "type": "string",
+          "label": {
+            "en": "File name",
+            "fr": "Nom du fichier",
+            "de": "Dateiname",
+            "es": "Nombre del archivo"
+          }
+        },
+        {
+          "key": "time_left",
+          "type": "number",
+          "label": {
+            "en": "Time left (min)",
+            "fr": "Temps restant (min)",
+            "de": "Restzeit (min)",
+            "es": "Tiempo restante (min)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "printer_error",
+      "label": {
+        "en": "Printer error",
+        "fr": "Erreur de l'imprimante",
+        "de": "Druckerfehler",
+        "es": "Error de la impresora"
+      },
+      "description": {
+        "en": "The printer raised an error (filament runout, heating, sensor...).",
+        "fr": "L'imprimante signale une erreur (fin de filament, chauffe, capteur...).",
+        "de": "Der Drucker meldet einen Fehler (Filamentende, Heizung, Sensor...).",
+        "es": "La impresora indica un error (fin de filamento, calentamiento, sensor...)."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Printer",
+            "fr": "Imprimante",
+            "de": "Drucker",
+            "es": "Impresora"
+          },
+          "required": false
+        }
+      ],
+      "variables": [
+        {
+          "key": "device_name",
+          "type": "string",
+          "label": {
+            "en": "Printer name",
+            "fr": "Nom de l'imprimante",
+            "de": "Druckername",
+            "es": "Nombre de la impresora"
+          }
+        },
+        {
+          "key": "error_code",
+          "type": "number",
+          "label": {
+            "en": "Error code",
+            "fr": "Code d'erreur",
+            "de": "Fehlercode",
+            "es": "Código de error"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "control_print",
+      "label": {
+        "en": "Control a print",
+        "fr": "Piloter une impression",
+        "de": "Druck steuern",
+        "es": "Controlar una impresión"
+      },
+      "description": {
+        "en": "Pause, resume or stop the current print of a printer.",
+        "fr": "Met en pause, reprend ou arrête l'impression en cours d'une imprimante.",
+        "de": "Pausiert, setzt fort oder bricht den laufenden Druck eines Druckers ab.",
+        "es": "Pausa, reanuda o detiene la impresión en curso de una impresora."
+      },
+      "timeout_seconds": 15,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Printer",
+            "fr": "Imprimante",
+            "de": "Drucker",
+            "es": "Impresora"
+          },
+          "required": true
+        },
+        {
+          "key": "command",
+          "type": "select",
+          "label": {
+            "en": "Command",
+            "fr": "Commande",
+            "de": "Befehl",
+            "es": "Orden"
+          },
+          "required": true,
+          "options": [
+            {
+              "value": "pause",
+              "label": { "en": "Pause", "fr": "Pause", "de": "Pause", "es": "Pausa" }
+            },
+            {
+              "value": "resume",
+              "label": {
+                "en": "Resume",
+                "fr": "Reprendre",
+                "de": "Fortsetzen",
+                "es": "Reanudar"
+              }
+            },
+            {
+              "value": "stop",
+              "label": {
+                "en": "Stop (cannot be resumed)",
+                "fr": "Arrêter (sans reprise possible)",
+                "de": "Abbrechen (nicht fortsetzbar)",
+                "es": "Detener (sin poder reanudar)"
+              }
+            }
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "key": "sent",
+          "type": "boolean",
+          "label": {
+            "en": "Command sent",
+            "fr": "Commande envoyée",
+            "de": "Befehl gesendet",
+            "es": "Orden enviada"
+          }
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "Print state before the command",
+            "fr": "État d'impression avant la commande",
+            "de": "Druckstatus vor dem Befehl",
+            "es": "Estado de impresión antes de la orden"
+          }
+        }
+      ]
+    },
+    {
+      "key": "take_snapshot",
+      "label": {
+        "en": "Take a printer snapshot",
+        "fr": "Prendre une photo de l'imprimante",
+        "de": "Druckerbild aufnehmen",
+        "es": "Tomar una foto de la impresora"
+      },
+      "description": {
+        "en": "Refresh the printer camera image, e.g. before sending it with a message.",
+        "fr": "Rafraîchit l'image de la caméra de l'imprimante, par exemple avant de l'envoyer dans un message.",
+        "de": "Aktualisiert das Kamerabild des Druckers, z. B. bevor es mit einer Nachricht gesendet wird.",
+        "es": "Actualiza la imagen de la cámara de la impresora, por ejemplo antes de enviarla en un mensaje."
+      },
+      "timeout_seconds": 20,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Printer",
+            "fr": "Imprimante",
+            "de": "Drucker",
+            "es": "Impresora"
+          },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "captured",
+          "type": "boolean",
+          "label": {
+            "en": "Image captured",
+            "fr": "Image prise",
+            "de": "Bild aufgenommen",
+            "es": "Imagen tomada"
+          }
+        }
+      ]
+    }
+  ]
+}
